@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace EF_example.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/users")]
 public class UsersController : ControllerBase
 {
     private readonly UserService _service;
     public UsersController(UserService service) { _service = service; }
 
-    [HttpPost]
+    [HttpPost("adduser")]
     public IActionResult Create([FromBody] CreateUserDto dto)
     {
         _service.AddUser(dto.Name, dto.Age, dto.Email);
         return Ok(new { Message = "✅ Пользователь добавлен" });
     }
 
-    [HttpGet]
+    [HttpGet("getall")]
     public ActionResult<List<User>> GetAll() => _service.GetUsers();
 
     [HttpGet("{id}")]
