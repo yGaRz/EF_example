@@ -13,9 +13,9 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public void AddUser(string name, int age)
+    public void AddUser(string name, int age, string email)
     {
-        var user = new User { Name = name, Age = age};
+        var user = new User { Name = name, Age = age, Email = email};
         _context.Users.Add(user);
         _context.SaveChanges();
     }

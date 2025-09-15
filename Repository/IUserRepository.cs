@@ -4,7 +4,7 @@ namespace EF_example.Repository;
 
 public interface IUserRepository
 {
-    void AddUser(string name, int age);
+    void AddUser(string name, int age, string email);
     List<User> GetUsers();
     User? GetUserById(int id);
     void DeleteUser(int id);
