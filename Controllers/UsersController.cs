@@ -1,22 +1,26 @@
 ﻿using EF_example.Db;
 using EF_example.Db.Models;
 using EF_example.Service;
+using EF_example.Validation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EF_example.Controllers;
 
 [ApiController]
 [Route("api/users")]
-public class UsersController : ControllerBase
+public class UsersController : BaseController
 {
     private readonly UserService _service;
-    public UsersController(UserService service) { _service = service; }
+
+    public UsersController(IValidationStorage validationStorage, UserService service):base(validationStorage)
+    {
+        _service = service;
+    }
 
     [HttpPost("adduser")]
-    public IActionResult Create([FromBody] CreateUserDto dto)
+    public async Task<IActionResult> Create([FromBody] CreateUserDto dto, CancellationToken token)
     {
-        _service.AddUser(dto.Name, dto.Age, dto.Email);
-        return Ok(new { Message = "✅ Пользователь добавлен" });
+        return await HandleRequestAsync(async token => await _service.AddUserWithBusinessValidation(dto.Name, dto.Age, dto.Email, token), token);
     }
 
     [HttpGet("getall")]

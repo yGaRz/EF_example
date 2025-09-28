@@ -2,7 +2,9 @@
 using EF_example.Db;
 using EF_example.Repository;
 using EF_example.Service;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
+using EF_example.Validation;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,10 @@ builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<DepartmentService>();
 
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserDtoValidator>();
+
+builder.Services.AddScoped<IValidationStorage, ValidationStorage>();
 builder.Services.AddControllers();
 //builder.Services.AddControllers()
 //    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserDtoValidator>());
