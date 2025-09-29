@@ -27,7 +27,11 @@ builder.Services.AddControllers();
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(5001); // слушать на порту 5001 на всех IP
+    options.ListenAnyIP(5000); // HTTP
+    options.ListenAnyIP(5001, listenOptions =>
+    {
+        listenOptions.UseHttps(); // HTTPS
+    });
 });
 var app = builder.Build();
 
@@ -38,6 +42,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseRouting();
+app.UseHttpsRedirection();
 
 app.MapControllers();
 
