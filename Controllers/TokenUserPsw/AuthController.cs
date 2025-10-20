@@ -23,8 +23,3 @@ public class AuthController : BaseController
         return Ok(new { Token = token });
     }
 }
-public class LoginDto
-{
-    public string Login { get; set; } = null!;
-    public string Password { get; set; } = null!;
-}

@@ -1,4 +1,5 @@
-﻿using EF_example.Service;
+﻿using EF_example.Models;
+using EF_example.Service;
 using EF_example.Validation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,13 +20,4 @@ public class RegisterController : BaseController
     {
         return await HandleRequestAsync(async token => await _userService.RegisterUser(dto.Name, dto.Age, dto.Email, dto.Login, dto.Password), token);
     }
-}
-
-public class RegisterDto
-{
-    public string Name { get; set; } = null!;
-    public int Age { get; set; }
-    public string Email { get; set; } = null!;
-    public string Login { get; set; } = null!;
-    public string Password { get; set; } = null!;
 }
