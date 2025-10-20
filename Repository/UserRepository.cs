@@ -4,20 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EF_example.Repository;
 
-public class UserRepository : IUserRepository
+public class UserRepository
 {
     private readonly AppDbContext _context;
 
     public UserRepository(AppDbContext context)
     {
         _context = context;
-    }
-
-    public void AddUser(string name, int age, string email)
-    {
-        var user = new User { Name = name, Age = age, Email = email};
-        _context.Users.Add(user);
-        _context.SaveChanges();
     }
 
     public List<User> GetUsers()
@@ -29,6 +22,10 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.Include(u => u.Department).FirstOrDefault(u => u.Id == id);
     }
+    public User? GetUserByLogin(string login)
+    {
+        return _context.Users.Include(u => u.Department).FirstOrDefault(u => u.Login == login);
+    }
 
     public void DeleteUser(int id)
     {
@@ -39,4 +36,20 @@ public class UserRepository : IUserRepository
             _context.SaveChanges();
         }
     }
+
+    public async Task AddUserAsync(string name, int age, string email, string login, string passwordHash)
+    {
+        var user = new User { Name = name, Age = age, Email = email, Login = login, PasswordHash = passwordHash };
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task AddUserAsync(string name, int age, string email)
+    {
+        var user = new User { Name = name, Age = age, Email = email };
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+    }
+
+
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EF_example.Repository;
 
-public class DepartmentRepository : IDepartmentRepository
+public class DepartmentRepository
 {
     private readonly AppDbContext _context;
 

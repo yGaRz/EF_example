@@ -2,7 +2,9 @@
 
 public enum ErrorCode
 {
-    EmailIsCreated
+    EmailIsCreated,
+    LoginIsCreated,
+    InvalidCredentials
 }
 
 public interface IValidationStorage

@@ -8,6 +8,8 @@ public class User
     public string Name { get; set; } = null!;
     public int Age { get; set; }
     public string Email { get; set; } = null!;
+    public string Login { get; set; } = null!;
+    public string PasswordHash { get; set; } = null!;
     public int? DepartmentId { get; set; }
     public virtual Department Department { get; set; }
 }

@@ -11,8 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<DepartmentRepository>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<DepartmentService>();
